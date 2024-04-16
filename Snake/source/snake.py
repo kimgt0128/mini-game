@@ -33,5 +33,5 @@ class Snake:
             self.positions.append((y + 1, x))
         elif self.direction == 'W':
             self.positions.append((y, x - 1))
-        elif self.direction == 'C':
+        elif self.direction == 'E':
             self.positions.append((y, x + 1)) 
