@@ -20,3 +20,5 @@ class Ball:
     def move(self):
         self.x += self.speed_x * self.time_sec
         self.y += self.speed_y * self.time_sec
+
+        

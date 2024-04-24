@@ -32,8 +32,11 @@ def runGame():
         clock.tick(30)
         screen.fill(BLACK)
 
+        elapsed_time = pygame.time.get_ticks()
+
+
         ball.time_sec = time_sec
-        print( time_passed)
+        print(elapsed_time)
         #keyboard 이벤트 처리
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -62,10 +65,10 @@ def runGame():
             done = True
         elif ball.x + ball.radious > size[0]:
             ball.speed_x = -ball.speed_x
-        if ball.y <= 0:
+        if ball.y - ball.radious <= 0:
             ball.speed_y = -ball.speed_y
-            ball.y = 0
-        elif ball.y >= size[1]:
+            ball.y = ball.radious
+        elif ball.y + ball.radious >= size[1]:
             ball.speed_y = -ball.speed_y
             ball.y = size[1] - ball.radious
 
