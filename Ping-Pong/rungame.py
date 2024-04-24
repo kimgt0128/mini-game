@@ -26,15 +26,14 @@ def runGame():
 
     # 탁구채 크기
     
-
     while not done:
-        time_passed = clock.tick(30)
+        time_passed = clock.tick(60)
         time_sec = time_passed / 1000.0
         clock.tick(30)
         screen.fill(BLACK)
 
         ball.time_sec = time_sec
-        
+        print( time_passed)
         #keyboard 이벤트 처리
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
