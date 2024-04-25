@@ -6,7 +6,9 @@ def draw_block(screen, color, position):
     pygame.draw.rect(screen, color, block)
 
 
+
 def isIn(position, size):
-    if position[0] > size[1] or position[0] < 0 or position[1] > size[0] or position[1] < 0:
+    #한 칸의 크기가 20이므로 position 계산시 이를 고려
+    if position[0]*20 < 0 or position[0]*20 >= size[1] or position[1]*20 < 0 or position[1]*20 >= size[0]:
         return True
     return False

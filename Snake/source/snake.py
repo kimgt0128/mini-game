@@ -9,8 +9,12 @@ class Snake:
         self.color = color
  
     def draw(self):
-        for position in self.positions: 
-            draw_block(self.screen, self.color, position)
+        head_position = self.positions[0]
+        for position in self.positions:
+            if position[0] == head_position[0] and position[1] == head_position[1]:
+                draw_block(self.screen, (255, 207, 64), position)
+            else:
+                draw_block(self.screen, self.color, position)
  
     def move(self):
         head_position = self.positions[0]

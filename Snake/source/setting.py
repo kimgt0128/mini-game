@@ -1,5 +1,4 @@
 import pygame
-import sys
 from datetime import datetime
 from datetime import timedelta
 
@@ -7,7 +6,8 @@ from datetime import timedelta
 WHITE = (255,255,255)
 RED = (255,0,0)
 GREEN = (0,255,0)
-size = [1000,600]
+BLACK = (0, 0, 0)
+size = [800, 600]
 screen = pygame.display.set_mode(size)
 
 # 파이게임 전역 변수들 선언
