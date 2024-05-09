@@ -38,22 +38,6 @@ def runGame():
                 level_info = 2
                 obstacle = Obstacle(screen, BLACK, size, snake.positions, apple.position)
                 obstacles.append(obstacle) 
-                
-        #if elapsed_time 
-
-
-        
-        #시간에 따른 level변경
-        #if elapsed_time < 3:
-          #  level_info = LEVEL_INFORMATION["level1"]
-        #if elapsed_time >= 3:
-         #   level_info = LEVEL_INFORMATION["level2"]
-        #if elapsed_time >= 5:
-         #   level_info = LEVEL_INFORMATION["level3"]
-        #if elapsed_time >= 8:
-         #   level_info = LEVEL_INFORMATION["level4"]
-
-        
 
         
         time_text = sysfont.render(f"진행 시간: {elapsed_time}초", True, (0, 0, 0))
