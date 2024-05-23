@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Ball:
     def __init__(self, screen, color, time_sec, screen_width, screen_height):
@@ -12,13 +13,13 @@ class Ball:
         self.radious = 9
         self.diameter = self.radious * 2
 
-        self.x = 400
-        self.y = 300
+        self.x = random.randint(200, screen_width - self.radious)
+        self.y = random.randint(200, screen_height - self.radious)
     def draw_circle(self):
         pygame.draw.circle(self.screen, self.color, (self.x, self.y), self.radious)
 
-    def move(self):
-        self.x += self.speed_x * self.time_sec
-        self.y += self.speed_y * self.time_sec
+    def move(self, time_sec):
+        self.x += 2.5 * self.speed_x * time_sec
+        self.y += 2.5 * self.speed_y * time_sec
 
         

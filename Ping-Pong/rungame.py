@@ -5,6 +5,7 @@ from Ball import Ball
 pygame.init()
 
 WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 size = [800, 600]
 screen = pygame.display.set_mode(size)
@@ -22,7 +23,11 @@ def runGame():
 
     #탁구채, 탁구공 객체
     bar = Bar(screen, size[1], WHITE, size[1]/20)
-    ball = Ball(screen, WHITE, 0, size[0], size[1])
+    balls = []
+    for i in range(0, 3):
+        ball = Ball(screen, WHITE, 0, size[0], size[1])
+        balls.append(ball)
+   
 
     # 탁구채 크기
     
@@ -56,30 +61,33 @@ def runGame():
         #충돌이벤트 처리
         #1. bar에 닿았을 때
 
-        if ball.x - ball.radious <= bar.width:
-            if (ball.y - ball.radious >= bar.positions[1]) and (ball.y - ball.radious <= bar.positions[1] + bar.height):
-                ball.x = bar.width + ball.radious
+        for ball in balls:
+            if ball.x - ball.radious <= bar.width:
+                if (ball.y - ball.radious >= bar.positions[1]) and (ball.y - ball.radious <= bar.positions[1] + bar.height):
+                    ball.x = bar.width + ball.radious
+                    ball.speed_x = -ball.speed_x
+            #위, 아래, 오른쪽, 왼쪽 벽면에 닿았을 때
+            if ball.x - ball.radious <= 0:
+                done = True
+            elif ball.x + ball.radious > size[0]:
                 ball.speed_x = -ball.speed_x
-        #위, 아래, 오른쪽, 왼쪽 벽면에 닿았을 때
-        if ball.x - ball.radious <= 0:
-            done = True
-        elif ball.x + ball.radious > size[0]:
-            ball.speed_x = -ball.speed_x
-        if ball.y - ball.radious <= 0:
-            ball.speed_y = -ball.speed_y
-            ball.y = ball.radious
-        elif ball.y + ball.radious >= size[1]:
-            ball.speed_y = -ball.speed_y
-            ball.y = size[1] - ball.radious
+            if ball.y - ball.radious <= 0:
+                ball.speed_y = -ball.speed_y
+                ball.y = ball.radious
+            elif ball.y + ball.radious >= size[1]:
+                ball.speed_y = -ball.speed_y
+                ball.y = size[1] - ball.radious
 
 
-        if ball.x - ball.radious <= bar.width:
-            print(bar.positions[1] + bar.height, " ", ball.y)
-        ball.move()
+
+        for ball in balls:  
+            ball.move(time_secs)
+            ball.draw_circle()
         bar.move()
         bar.draw_block()
-        ball.draw_circle()
+        #ball.draw_circle()
         pygame.display.update()
 
 runGame()
+
 pygame.quit()
