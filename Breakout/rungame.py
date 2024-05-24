@@ -34,8 +34,6 @@ def delayed_task():
     global done
     done = True
 
-    return True
-
 def runGame():
     global done
     global finish_time
@@ -46,17 +44,16 @@ def runGame():
     FAILURE = 2
     game_over = 0
     
-
     bricks = []
     COLUMN_COUNT = 8
-    ROW_COUNT = 1
+    ROW_COUNT = 10
     #2차원 배열로 벽돌 설정하기
     for column_index in range(COLUMN_COUNT):
         for row_index in range(ROW_COUNT):
             brick = pygame.Rect(column_index * (60 + 10) + 35, row_index * (16 + 5) + 35, 60, 16)
             bricks.append(brick)  #len 배열에 벽돌 추가     
 
-    ball = pygame.Rect(screen_width // 2 - 16 // 2, screen_height // 2 - 16 // 2, 16, 16)
+    ball = pygame.Rect(screen_width // 2 - 16 // 2, screen_height // 2 - 30 // 2, 16, 16)
     #dy, dx가 5, -5중 하나 선택되도록 하기
     directions = [5, -5]
     ball_dx = random.choice(directions)
@@ -91,18 +88,19 @@ def runGame():
         #ball 충돌 설정
         if ball.left <= 0:
             ball.left = 0
-            ball_dx = -ball_dx
+            ball_dx *= -1
         elif ball.left >= screen_width - ball.width: 
             ball.left = screen_width - ball.width
-            ball_dx = -ball_dx
+            ball_dx *= -1
         if ball.top < 0:
             ball.top = 0
-            ball_dy = -ball_dy
+            ball_dy *= -1
         elif ball.top >= screen_height:
             missed += 1
             ball.left = screen_width // 2 - ball.width // 2
             ball.top = screen_height // 2 - ball.width // 2
-            ball_dy = -ball_dy 
+            ball_dx = random.choice(directions)
+            ball_dy = random.choice(directions)
 
         #3개 이상 놓치면 게임 종료
         if missed >= 3:
@@ -125,9 +123,16 @@ def runGame():
             ball_dy = -ball_dy
             if ball.centerx <= paddle.left or ball.centerx > paddle.right:
                 ball_dx = ball_dx * -1
+            #패들에 충돌시 공의 속도를 증가시키기
+            ball_dy -= 1
+            if ball_dx < 0:
+                ball_dx -= 1
+            elif ball_dx > 0:
+                ball_dx += 1
         #벽돌의 개수가 0이면 게임 종료
         if len(bricks) == 0:
             print('success')
+
             game_over = SUCCESS
 
         #화면 그리기
