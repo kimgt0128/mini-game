@@ -33,7 +33,7 @@ def runGame():
         
         cur_time = time.time()-start_time
         text = small_font.render("time : " + str(int(cur_time)), True, RED)
-        screen.blit(text, (100, 100))
+        screen.blit(text, (0, 0))
         pygame.display.update() #모든 화면 그리기 업데이트
 
 runGame()

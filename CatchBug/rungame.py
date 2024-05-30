@@ -23,6 +23,17 @@ def runGame():
     remain_time = 0
     game_over = 0
 
+    star_image = pygame.image.load("./CatchBug/star.png")
+    star_image = pygame.transform.scale(star_image, (60, 80))
+    stars = []
+    for i in range(3):
+        star = pygame.Rect(star_image.get_rect())
+        star.left = random.randint(0, screen_width)
+        star.top = random.randint(0, screen_height)
+        dx = random.randint(-9, 9)
+        dy = random.randint(-9, 9)
+        stars.append((star, dx, dy))
+
     bug_image = pygame.image.load("./CatchBug/bug.png")
     bug_image = pygame.transform.scale(bug_image, (60, 80))
     bugs = []
@@ -43,6 +54,8 @@ def runGame():
                 done=True
             elif event.type == pygame.MOUSEBUTTONDOWN and game_over == 0:
                 print(event.pos[0], event.pos[1])
+
+                #bug collid
                 for (bug, dx, dy) in bugs:
                     if bug.collidepoint(event.pos):
                         print(bug)
@@ -54,19 +67,37 @@ def runGame():
                         dy = random.randint(-9, 9)
                         bugs.append((bug, dx, dy))
                         score += 1
+                #star collid
+                for (star, dx, dy) in stars:
+                    if star.collidepoint(event.pos):
+                        print(bug)
+                        stars.remove((star, dx, dy))
+                        star = pygame.Rect(star_image.get_rect())
+                        star.left = random.randint(0, screen_width)
+                        star.top = random.randint(0, screen_height)
+                        dx = random.randint(-9, 9)
+                        dy = random.randint(-9, 9)
+                        stars.append((star, dx, dy))
+                        score -= 5
 
         if game_over == 0:
             for (bug, dx, dy) in bugs:
                 bug.left += dx
                 bug.top += dy
 
+            for (star, dx, dy) in stars:
+                star.left += dx
+                star.top += dy
+
             remain_time = 60 - (int(time.time()) - start_time)
 
-            if remain_time <= 0:
+            if remain_time <= 0 or score < 0:
                 game_over = 1
 
         for (bug, dx, dy) in bugs:
             screen.blit(bug_image, bug)
+        for (star, dx, dy) in stars:
+            screen.blit(star_image, star)
 
         for (bug, dx, dy) in bugs:
             if not bug.colliderect(screen.get_rect()):
@@ -77,6 +108,16 @@ def runGame():
                 dx = random.randint(-9, 9)
                 dy = random.randint(-9, 9)
                 bugs.append((bug, dx, dy))
+
+        for (star, dx, dy) in stars:
+            if not star.colliderect(screen.get_rect()):
+                stars.remove((star, dx, dy))
+                star = pygame.Rect(star_image.get_rect())
+                star.left = random.randint(0, screen_width)
+                star.top = random.randint(0, screen_height)
+                dx = random.randint(-9, 9)
+                dy = random.randint(-9, 9)
+                stars.append((star, dx, dy))
 
         score_image = small_font.render('Point {}'.format(score), True, YELLOW)
         screen.blit(score_image, (10, 10))
