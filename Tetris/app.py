@@ -14,8 +14,7 @@
 # Have fun!
  
 # NOTE: If you're looking for the old python2 version, see
-# <https://gist.github.com/silvasur/565419/45a3ded61b993d1dd195a8a8688e7dc196b08de8>
- 
+
 # Copyright (c) 2010 "Laria Carolin Chabowski"<me@laria.me>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
